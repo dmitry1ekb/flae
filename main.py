@@ -167,7 +167,7 @@ class FindTime():
 
     returned data when string don't have time is "-".
     '''
-    EXITED_TIME_CONST = "-"
+    EXITED_TIME_CONST = ""
 
     def __init__(self, line):
         self.line = line.split()
@@ -199,6 +199,28 @@ class FindTime():
                             continue
         return exited_time
 
+class DateCheck():
+    OUTPUT_FALSE = ""
+    OUTPUT_ERROR = ""
+    '''
+    Checking is time correctly
+
+    '''
+    def __init__(self,time_):
+        '''try:
+
+            else:
+                print(44)
+                self.time_ = DateCheck.OUTPUT_FALSE
+        except:
+            print(55)
+            self.time_ = DateCheck.OUTPUT_ERROR'''
+
+
+        self.ENTERED_DATE_1 = int(time_.split(".")[0])
+        self.ENTERED_DATE_2 = int(time_.split(".")[1])
+        if self.ENTERED_DATE_1 >= 1 and self.ENTERED_DATE_1 <= 31 and 1 <= self.ENTERED_DATE_2 <= 12:
+            self.time_ = time_
 
 class FindDate():
     EXITED_TIME_CONST = ""
@@ -208,41 +230,32 @@ class FindDate():
 
     def find_date(self):
         exited_time = FindTime.EXITED_TIME_CONST
-        '''
-        for word in self.line:
-            if ":" in word:
-                exited_time = TimeCheck(word).time_
-                if exited_time not in [TimeCheck.OUTPUT_FALSE, TimeCheck.OUTPUT_ERROR]:
-                    break
-        '''
 
+        for word in self.line:
+            if "." in word:
+                exited_time = DateCheck(word).time_
+                if exited_time not in [DateCheck.OUTPUT_FALSE, DateCheck.OUTPUT_ERROR]:
+                    break
+
+        MNSS = ["январ","феврал","март","апрел","ма","июн","июл","август","сентябр","октябр","ноябр","декабр"]
         if exited_time == FindTime.EXITED_TIME_CONST:
             for word_index in range(len(self.line)):
-                if self.line[word_index].lower().find("январ") != -1\
-                        or self.line[word_index].lower().find("феврал") != -1 \
-                        or self.line[word_index].lower().find("март") != -1 \
-                        or self.line[word_index].lower().find("апрел") != -1 \
-                        or self.line[word_index].lower().find("мае") != -1 \
-                        or self.line[word_index].lower().find("мая") != -1 \
-                        or self.line[word_index].lower().find("июн") != -1 \
-                        or self.line[word_index].lower().find("июл") != -1 \
-                        or self.line[word_index].lower().find("август") != -1 \
-                        or self.line[word_index].lower().find("сентябр") != -1 \
-                        or self.line[word_index].lower().find("октябр") != -1 \
-                        or self.line[word_index].lower().find("ноябр") != -1 \
-                        or self.line[word_index].lower().find("декабр") != -1:
-                    #print(self.line[word_index].find("утр"))
-                    try:
-                        #print(self.line[word_index-1])
-                        hours = int(self.line[word_index-1])
-                        exited_time = str(hours) + self.line[word_index]
-
-                    except:
+                i = 0
+                for mnth in MNSS:
+                    i+=1
+                    if self.line[word_index].lower().find(mnth) != -1:
+                        #print(self.line[word_index].lower().find(mnth))
                         try:
-                            hours = int(self.line[word_index-3])
-                            exited_time = str(hours) + self.line[word_index]
+
+                            hours = int(self.line[word_index-1])
+                            exited_time = str(hours) + "." + str(i)
+                            #print(1)
                         except:
-                            continue
+                            try:
+                                hours = int(self.line[word_index-3])
+                                exited_time = str(hours) + "." + str(i)
+                            except:
+                                continue
         return exited_time
 
 
@@ -252,6 +265,7 @@ oo = ooo.find_time()
 
 temp21 = FindDate(inputed)
 temp22 = temp21.find_date()
-print(oo)
-
-
+if str(oo)=='':ss=str(temp22)
+else:ss=str(oo)+', '+str(temp22)
+if ss=='':print('-')
+else:print(ss)
