@@ -190,15 +190,10 @@ class FindTime():
                             TimeCheck(str(hours) + ":00")
                         except:
                             continue
-
+        return exited_time
 inputed = input()
 ooo = FindTime(inputed)
 oo = ooo.find_time()
-print(oo.)
-
-
-
-
-
+print(oo)
 
 
