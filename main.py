@@ -207,20 +207,20 @@ class DateCheck():
 
     '''
     def __init__(self,time_):
-        '''try:
-
+        try:
+            self.ENTERED_DATE_1 = int(time_.split(".")[0])
+            self.ENTERED_DATE_2 = int(time_.split(".")[1])
+            if self.ENTERED_DATE_1 >= 1 and self.ENTERED_DATE_1 <= 31 and 1 <= self.ENTERED_DATE_2 <= 12:
+                self.time_ = time_
             else:
-                print(44)
+                #print(44)
                 self.time_ = DateCheck.OUTPUT_FALSE
         except:
-            print(55)
-            self.time_ = DateCheck.OUTPUT_ERROR'''
+            #print(55)
+            self.time_ = DateCheck.OUTPUT_ERROR
 
 
-        self.ENTERED_DATE_1 = int(time_.split(".")[0])
-        self.ENTERED_DATE_2 = int(time_.split(".")[1])
-        if self.ENTERED_DATE_1 >= 1 and self.ENTERED_DATE_1 <= 31 and 1 <= self.ENTERED_DATE_2 <= 12:
-            self.time_ = time_
+
 
 class FindDate():
     EXITED_TIME_CONST = ""
