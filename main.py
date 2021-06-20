@@ -157,12 +157,15 @@ class TimeCheck():
             self.time_ = TimeCheck.OUTPUT_ERROR
 
 
-a = TimeCheck("14:00")
-print(a.time_)
+#a = TimeCheck("14:00")
+#print(a.time_)
 
 class FindTime():
     '''
+    This class scanning line and searching "утр" or "am".
+    When he search some type text he start searching some digit.
 
+    returned data when string don't have time is "-".
     '''
     EXITED_TIME_CONST = "-"
 
@@ -180,20 +183,75 @@ class FindTime():
 
         if exited_time == FindTime.EXITED_TIME_CONST:
             for word_index in range(len(self.line)):
-                if self.line[word_index].find("утр") != -1:
+                if self.line[word_index].lower().find("утр") != -1 or self.line[word_index].lower().find("am") != -1:
+                    #print(self.line[word_index].find("утр"))
                     try:
+                        #print(self.line[word_index-1])
                         hours = int(self.line[word_index-1])
-                        TimeCheck(str(hours)+":00")
+                        exited_time = TimeCheck(str(hours)+":00").time_
+
                     except:
                         try:
                             hours = int(self.line[word_index-2])
                             TimeCheck(str(hours) + ":00")
+                            exited_time = TimeCheck(str(hours) + ":00").time_
                         except:
                             continue
         return exited_time
+
+
+class FindDate():
+    EXITED_TIME_CONST = ""
+
+    def __init__(self, line):
+        self.line = line.split()
+
+    def find_date(self):
+        exited_time = FindTime.EXITED_TIME_CONST
+        '''
+        for word in self.line:
+            if ":" in word:
+                exited_time = TimeCheck(word).time_
+                if exited_time not in [TimeCheck.OUTPUT_FALSE, TimeCheck.OUTPUT_ERROR]:
+                    break
+        '''
+
+        if exited_time == FindTime.EXITED_TIME_CONST:
+            for word_index in range(len(self.line)):
+                if self.line[word_index].lower().find("январ") != -1\
+                        or self.line[word_index].lower().find("феврал") != -1 \
+                        or self.line[word_index].lower().find("март") != -1 \
+                        or self.line[word_index].lower().find("апрел") != -1 \
+                        or self.line[word_index].lower().find("мае") != -1 \
+                        or self.line[word_index].lower().find("мая") != -1 \
+                        or self.line[word_index].lower().find("июн") != -1 \
+                        or self.line[word_index].lower().find("июл") != -1 \
+                        or self.line[word_index].lower().find("август") != -1 \
+                        or self.line[word_index].lower().find("сентябр") != -1 \
+                        or self.line[word_index].lower().find("октябр") != -1 \
+                        or self.line[word_index].lower().find("ноябр") != -1 \
+                        or self.line[word_index].lower().find("декабр") != -1:
+                    #print(self.line[word_index].find("утр"))
+                    try:
+                        #print(self.line[word_index-1])
+                        hours = int(self.line[word_index-1])
+                        exited_time = str(hours) + self.line[word_index]
+
+                    except:
+                        try:
+                            hours = int(self.line[word_index-3])
+                            exited_time = str(hours) + self.line[word_index]
+                        except:
+                            continue
+        return exited_time
+
+
 inputed = input()
 ooo = FindTime(inputed)
 oo = ooo.find_time()
+
+temp21 = FindDate(inputed)
+temp22 = temp21.find_date()
 print(oo)
 
 
