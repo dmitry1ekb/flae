@@ -1,0 +1,15 @@
+main.py can search time in any string.
+
+    Example:
+        Input:
+      Jhon read book at 7:00 4real.
+        Output:
+      7:00
+
+    Example:
+        Input:
+      Я хочу пойти кушать в 7 утра.
+        Output:
+      7:00
+
+
